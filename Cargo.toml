@@ -1,0 +1,16 @@
+[workspace]
+resolver = "3"
+members = ["mods/*"]
+
+[workspace.package]
+edition = "2024"
+
+[workspace.dependencies]
+# The stable mod ABI. It is append-only, so a mod built against this revision keeps loading on
+# newer servers; move the pin forward only to use something newer.
+moddedmc-api = { git = "https://github.com/devmogged/moddedMC-rust", rev = "af74988e08e3c8aca1ad9e0c5bea58dc27445fd7" }
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
