@@ -43,6 +43,9 @@ jobs:
       - uses: Swatinem/rust-cache@9d47c6ad4b02e050fd481d890b2ea34778fd09d6 # v2.7.8
       - name: Build
         shell: bash
+        env:
+          # Windows: link the C runtime in, so the mod loads on a PC without the VC++ redistributable.
+          RUSTFLAGS: ${{ runner.os == 'Windows' && '-C target-feature=+crt-static' || '' }}
         run: |
           args=$(echo '${{ needs.plan.outputs.mods }}' | python3 -c "import json,sys; print(' '.join('-p ' + m for m in json.load(sys.stdin)))")
           cargo build --release $args
