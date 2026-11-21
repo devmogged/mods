@@ -1,0 +1,16 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "stone": "minecraft:block/blackstone",
+    "ash": "minecraft:block/polished_blackstone",
+    "membrane": "minecraft:block/crimson_planks",
+    "ember": "minecraft:block/magma",
+    "eye": "minecraft:block/glowstone",
+    "particle": "minecraft:block/blackstone"
+  },
+  "elements": [
+    {"from":[5,6,0],"to":[11,10,8],"faces":{"north":{"texture":"#stone","uv":[0,0,16,16]},"south":{"texture":"#stone","uv":[0,0,16,16]},"east":{"texture":"#stone","uv":[0,0,16,16]},"west":{"texture":"#stone","uv":[0,0,16,16]},"up":{"texture":"#ember","uv":[0,0,16,16]},"down":{"texture":"#stone","uv":[0,0,16,16]}}},
+    {"from":[6,7,-7],"to":[10,10,1],"faces":{"north":{"texture":"#stone","uv":[0,0,16,16]},"south":{"texture":"#stone","uv":[0,0,16,16]},"east":{"texture":"#stone","uv":[0,0,16,16]},"west":{"texture":"#stone","uv":[0,0,16,16]},"up":{"texture":"#ember","uv":[0,0,16,16]},"down":{"texture":"#stone","uv":[0,0,16,16]}}},
+    {"from":[7,9,-10],"to":[9,13,-6],"faces":{"north":{"texture":"#ember","uv":[0,0,16,16]},"south":{"texture":"#ember","uv":[0,0,16,16]},"east":{"texture":"#ember","uv":[0,0,16,16]},"west":{"texture":"#ember","uv":[0,0,16,16]},"up":{"texture":"#ember","uv":[0,0,16,16]},"down":{"texture":"#ember","uv":[0,0,16,16]}}}
+  ]
+}

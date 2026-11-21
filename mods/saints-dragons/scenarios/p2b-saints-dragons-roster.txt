@@ -1,0 +1,91 @@
+# One asset-bearing .mmc spawns all ten adult rigs and keeps their types across a restart.
+mods target\mods\saints-dragons.mmc
+start
+expect moddedmc: loaded saints-dragons
+botstart tester
+wait 3
+cmd gamemode creative tester
+cmd tp tester 1026.5 101 1026.5
+cmd forceload add 1017 1017 1033 1033
+wait 4
+cmd fill 1017 99 1017 1033 99 1033 minecraft:stone
+cmd fill 1017 100 1017 1033 110 1033 minecraft:air
+cmd fill 1017 100 1017 1017 102 1033 minecraft:stone
+cmd fill 1033 100 1017 1033 102 1033 minecraft:stone
+cmd fill 1017 100 1017 1033 102 1017 minecraft:stone
+cmd fill 1017 100 1033 1033 102 1033 minecraft:stone
+cmd fill 1018 100 1018 1018 102 1024 minecraft:stone
+cmd fill 1024 100 1018 1024 102 1024 minecraft:stone
+cmd fill 1019 100 1018 1023 102 1018 minecraft:stone
+cmd fill 1019 100 1024 1023 102 1024 minecraft:stone
+cmd fill 1019 100 1019 1023 102 1023 minecraft:water
+cmd time set midnight
+wait 2
+
+cmd saintsdragons spawn cindervane 1027 100 1021
+wait 0.3
+expect saintsdragons:cindervane: spawned \d+
+cmd saintsdragons spawn raevyx 1030 100 1021
+wait 0.3
+expect saintsdragons:raevyx: spawned \d+
+cmd saintsdragons spawn stegonaut 1027 100 1025
+wait 0.3
+expect saintsdragons:stegonaut: spawned \d+
+cmd saintsdragons spawn varasuchus 1030 100 1025
+wait 0.3
+expect saintsdragons:varasuchus: spawned \d+
+cmd saintsdragons spawn ignivorus 1027 100 1030
+wait 0.3
+expect saintsdragons:ignivorus: spawned \d+
+cmd saintsdragons spawn volitans 1030 100 1030
+wait 0.3
+expect saintsdragons:volitans: spawned \d+
+cmd saintsdragons spawn nulljaw 1020 100 1027
+wait 0.3
+expect saintsdragons:nulljaw: spawned \d+
+cmd saintsdragons spawn atroxiia 1023 100 1027
+wait 0.3
+expect saintsdragons:atroxiia: spawned \d+
+cmd saintsdragons spawn moop 1021 101 1021
+wait 0.3
+expect saintsdragons:moop: spawned \d+
+cmd saintsdragons spawn mossback 1022 100 1030
+wait 0.3
+expect saintsdragons:mossback: spawned \d+
+wait 3
+bot expect entity item_display near 1026.5 100 1026.5 within 22 count 14
+wait 0.5
+expect \[bot\] expect entity ok item_display.*\(14 visible\)
+
+cmd gamemode survival tester
+cmd item replace entity tester hotbar.0 with saintsdragons:mossback_spawn_egg
+wait 0.5
+bot use 1026 99 1027 up
+wait 2
+bot expect slot 36 minecraft:air 0
+wait 0.5
+expect \[bot\] expect inventory ok slot 36
+bot expect entity item_display near 1026.5 100 1026.5 within 22 count 15
+wait 0.5
+expect \[bot\] expect entity ok item_display.*\(15 visible\)
+
+bot quit
+stop
+start
+botstart tester
+wait 5
+cmd time set midnight
+bot expect entity item_display near 1026.5 100 1026.5 within 22 count 15
+wait 0.5
+expect \[bot\] expect entity ok item_display.*\(15 visible\)
+cmd gamemode spectator tester
+cmd kill @e[type=minecraft:item]
+wait 0.5
+cmd damage @e[type=minecraft:wolf,sort=nearest,limit=1] 100 minecraft:generic
+wait 2
+cmd data get entity @e[type=minecraft:item,sort=nearest,limit=1] Item.id
+wait 0.5
+expect saintsdragons:raw_mossback
+reject (?i)panic|panicked
+bot quit
+stop

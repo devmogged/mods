@@ -1,0 +1,70 @@
+# P2a: Cindervane as a mod mob carried by a vanilla ravager, its state saved with it, running its
+# own goals instead of the ravager's, fighting back and dying with its own loot.
+# Run scripts/scenario.ps1 -Scenario tests/scenarios/p2a-dragons.txt -RunDir run/p2a-dragons -Fresh
+mods target\mods\saints-dragons.mmc
+start
+expect registered mob saintsdragons:cindervane \(carrier minecraft:ravager\)
+botstart tester
+wait 3
+expect \[bot\] joined as tester
+cmd op tester
+cmd gamemode creative tester
+cmd tp tester 1025.5 101 1025.5
+wait 4
+cmd fill 1015 99 1015 1035 99 1035 minecraft:stone
+cmd fill 1015 100 1015 1035 110 1035 minecraft:air
+cmd time set midnight
+wait 1
+
+cmd cindervane spawn 1025 100 1025
+wait 1
+expect cindervane: spawned \d+, state set true
+cmd cindervane find 1025 100 1025
+wait 1
+expect cindervane: found 1: saintsdragons:cindervane ravager state=wild ai=on
+cmd cindervane find 1025 100 1100
+wait 1
+expect cindervane: found 0
+
+# The type and the mod's state survive a restart.
+bot quit
+stop
+start
+botstart tester
+wait 3
+expect \[bot\] joined as tester
+cmd tp tester 1025.5 101 1025.5
+cmd time set midnight
+wait 4
+cmd cindervane find 1025 100 1025
+wait 1
+expect cindervane: found 1: saintsdragons:cindervane ravager state=wild ai=on
+
+# Fall and lava don't hurt it, and nothing has hurt it yet, so it has no target.
+cmd damage @e[type=minecraft:ravager,limit=1] 500 minecraft:fall
+cmd damage @e[type=minecraft:ravager,limit=1] 500 minecraft:lava
+wait 1
+cmd cindervane find 1025 100 1025
+wait 1
+expect cindervane: found 1: .* target=none
+# Hurt by a villager, it targets the villager, chases it and bites it to death (12 a bite).
+cmd summon minecraft:villager 1031 100 1025
+wait 1
+cmd damage @e[type=minecraft:ravager,limit=1] 1 minecraft:mob_attack by @e[type=minecraft:villager,limit=1]
+wait 1
+cmd cindervane find 1025 100 1025
+wait 1
+expect cindervane: found 1: .* target=villager
+wait 10
+cmd cindervane find 1025 100 1025
+wait 1
+expect cindervane: found 1: .* target=none; around: player$
+# It dies with its own empty loot table, not the ravager's saddle.
+cmd damage @e[type=minecraft:ravager,limit=1] 1000 minecraft:generic
+wait 3
+cmd cindervane find 1025 100 1025
+wait 1
+expect cindervane: found 0: ; around: player$
+reject (?i)panic|panicked
+bot quit
+stop

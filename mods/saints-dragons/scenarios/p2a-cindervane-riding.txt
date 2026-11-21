@@ -1,0 +1,122 @@
+# Adult Cindervane, using the stock client's entity click and rider packets.
+mods target\mods\saints-dragons.mmc
+start
+expect registered mob saintsdragons:cindervane
+botstart tester
+wait 3
+expect \[bot\] joined as tester
+cmd op tester
+cmd gamemode creative tester
+cmd tp tester 1025.5 101 1027.5
+wait 4
+cmd fill 1017 99 1017 1033 99 1033 minecraft:stone
+cmd fill 1017 100 1017 1033 120 1033 minecraft:air
+cmd time set midnight
+wait 1
+cmd cindervane spawn 1025 100 1025
+cmd item replace entity tester weapon.offhand with saintsdragons:hearty_dragon_meal
+wait 1
+# Each meal rolls 50 percent. Wait past the 44-tick feeding cooldown before trying again.
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+bot use-entity ravager 1025.5 100 1025.5 off
+wait 2.45
+cmd cindervane find 1025 100 1025
+wait 1
+expect state=tamed ai=on health=80\.0 .* target=none
+
+# Only the owner can equip the saddle. Use survival so equipping it must consume the item.
+cmd item replace entity tester hotbar.0 with minecraft:saddle
+cmd gamemode survival tester
+wait 0.5
+bot use-entity ravager 1025.5 100 1025.5 main
+wait 0.5
+bot expect slot 36 minecraft:air 0
+wait 0.5
+expect \[bot\] expect inventory ok slot 36
+cmd cindervane find 1025 100 1025
+wait 1
+expect state=tamed\+saddled ai=on
+# Let the final meal's 200-tick regeneration expire before measuring damage.
+wait 11
+cmd damage @e[type=minecraft:ravager,limit=1] 10 minecraft:magic
+wait 1
+cmd cindervane find 1025 100 1025
+wait 1
+expect state=tamed\+saddled ai=on health=70\.0
+
+bot quit
+stop
+start
+botstart tester
+wait 4
+expect \[bot\] joined as tester
+cmd tp tester 1025.5 101 1027.5
+wait 2
+cmd cindervane find 1025 100 1025
+wait 1
+expect state=tamed\+saddled ai=on health=70\.0
+bot use-entity ravager 1025.5 100 1025.5 main
+wait 0.75
+bot expect riding ravager
+wait 0.5
+expect \[bot\] expect riding ok ravager
+cmd execute if entity @e[type=minecraft:ravager,x=1020,y=104,z=1020,dx=11,dy=30,dz=11]
+wait 0.5
+expect Test failed
+bot input jump
+wait 1.25
+cmd execute if entity @e[type=minecraft:ravager,x=1020,y=104,z=1020,dx=11,dy=30,dz=11]
+bot input none
+wait 0.5
+expect Test passed
+wait 12
+cmd execute if entity @e[type=minecraft:ravager,x=1025.5,y=100,z=1025.5,distance=..3]
+wait 0.5
+expect Test passed
+bot input sneak
+wait 1
+bot expect riding none
+wait 0.5
+expect \[bot\] expect riding ok none
+cmd tp tester 1033.5 101 1025.5
+wait 1
+cmd damage @e[type=minecraft:ravager,limit=1] 1000 minecraft:generic
+wait 3
+cmd cindervane find 1025 100 1025
+wait 1
+expect cindervane: found 0: ; around: item
+cmd data get entity @e[type=minecraft:item,nbt={Item:{id:"minecraft:saddle"}},limit=1] Item.id
+wait 0.5
+expect minecraft:saddle
+reject (?i)panic|panicked|\[bot\] error
+bot quit
+stop

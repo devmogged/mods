@@ -1,0 +1,19 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "stone": "minecraft:block/blackstone",
+    "ash": "minecraft:block/polished_blackstone",
+    "membrane": "minecraft:block/crimson_planks",
+    "ember": "minecraft:block/magma",
+    "eye": "minecraft:block/glowstone",
+    "particle": "minecraft:block/blackstone"
+  },
+  "elements": [
+    {"from":[7,7,7],"to":[15,9,10],"faces":{"north":{"texture":"#stone","uv":[0,0,16,16]},"south":{"texture":"#stone","uv":[0,0,16,16]},"east":{"texture":"#stone","uv":[0,0,16,16]},"west":{"texture":"#stone","uv":[0,0,16,16]},"up":{"texture":"#stone","uv":[0,0,16,16]},"down":{"texture":"#stone","uv":[0,0,16,16]}}},
+    {"from":[14,8,6],"to":[23,10,9],"faces":{"north":{"texture":"#stone","uv":[0,0,16,16]},"south":{"texture":"#stone","uv":[0,0,16,16]},"east":{"texture":"#stone","uv":[0,0,16,16]},"west":{"texture":"#stone","uv":[0,0,16,16]},"up":{"texture":"#stone","uv":[0,0,16,16]},"down":{"texture":"#stone","uv":[0,0,16,16]}}},
+    {"from":[22,9,5],"to":[27,11,8],"faces":{"north":{"texture":"#ash","uv":[0,0,16,16]},"south":{"texture":"#ash","uv":[0,0,16,16]},"east":{"texture":"#ash","uv":[0,0,16,16]},"west":{"texture":"#ash","uv":[0,0,16,16]},"up":{"texture":"#ash","uv":[0,0,16,16]},"down":{"texture":"#ash","uv":[0,0,16,16]}}},
+    {"from":[8,7,0],"to":[16,8,8],"faces":{"north":{"texture":"#membrane","uv":[0,0,16,16]},"south":{"texture":"#membrane","uv":[0,0,16,16]},"east":{"texture":"#membrane","uv":[0,0,16,16]},"west":{"texture":"#membrane","uv":[0,0,16,16]},"up":{"texture":"#ember","uv":[0,0,16,16]},"down":{"texture":"#membrane","uv":[0,0,16,16]}}},
+    {"from":[16,8,1],"to":[23,9,7],"faces":{"north":{"texture":"#membrane","uv":[0,0,16,16]},"south":{"texture":"#membrane","uv":[0,0,16,16]},"east":{"texture":"#membrane","uv":[0,0,16,16]},"west":{"texture":"#membrane","uv":[0,0,16,16]},"up":{"texture":"#membrane","uv":[0,0,16,16]},"down":{"texture":"#membrane","uv":[0,0,16,16]}}},
+    {"from":[23,9,3],"to":[26,10,6],"faces":{"north":{"texture":"#membrane","uv":[0,0,16,16]},"south":{"texture":"#membrane","uv":[0,0,16,16]},"east":{"texture":"#membrane","uv":[0,0,16,16]},"west":{"texture":"#membrane","uv":[0,0,16,16]},"up":{"texture":"#membrane","uv":[0,0,16,16]},"down":{"texture":"#membrane","uv":[0,0,16,16]}}}
+  ]
+}

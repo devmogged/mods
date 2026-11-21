@@ -1,0 +1,84 @@
+# Cindervane's stock display and autonomous flight.
+mods target\mods\saints-dragons.mmc
+start
+botstart tester
+wait 3
+cmd op tester
+cmd gamemode creative tester
+cmd tp tester 1025.5 121 1025.5
+wait 4
+cmd fill 1005 119 1005 1045 119 1045 minecraft:stone
+cmd fill 1005 120 1005 1045 137 1045 minecraft:air
+# Keep ground wander inside the find radius while waiting for the wild takeoff roll.
+cmd fill 1017 120 1017 1017 122 1033 minecraft:stone
+cmd fill 1033 120 1017 1033 122 1033 minecraft:stone
+cmd fill 1017 120 1017 1033 122 1017 minecraft:stone
+cmd fill 1017 120 1033 1033 122 1033 minecraft:stone
+cmd time set midnight
+wait 4
+cmd cindervane spawn 1025 120 1025
+wait 3
+bot expect entity item_display near 1025.5 121.15 1025.5 within 8 count 5
+wait 0.5
+expect \[bot\] expect entity ok item_display
+cmd data get entity @e[type=minecraft:ravager,limit=1] active_effects[0].id
+wait 0.5
+expect minecraft:invisibility
+cmd cindervane find 1025 120 1025
+wait 0.5
+expect flight=idle
+cmd time set day
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 2.5
+cmd cindervane find 1025 120 1025
+wait 1
+expect flight=active
+cmd time set midnight
+wait 10
+cmd execute if entity @e[type=minecraft:ravager,x=1005,y=119,z=1005,dx=40,dy=2,dz=40]
+wait 0.5
+expect Test passed
+cmd damage @e[type=minecraft:ravager,limit=1] 1000 minecraft:generic
+wait 2
+bot expect entity item_display near 1025.5 120 1025.5 within 32 count 0
+wait 1
+expect \[bot\] expect entity ok item_display.*\(0 visible\)
+bot quit
+stop

@@ -1,0 +1,14 @@
+[package]
+name = "saints-dragons"
+version = "0.1.0"
+edition.workspace = true
+license = "MIT"
+description = "Saint's Dragons for moddedMC, ported from Saint's Dragons 0.9.88 (Minecraft 1.20.1, Fabric and Forge), commit 13aeb2eb2c."
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+moddedmc-api.workspace = true
+fastnbt = "2.6.3"

@@ -1,0 +1,10 @@
+name = "Saint's Dragons"
+description = "Dragons that hatch, grow, fly and fight, with their own nests and loot."
+license = "MIT"
+dependencies = []
+
+[original]
+name = "Saint's Dragons"
+version = "0.9.88"
+minecraft = "1.20.1"
+url = "https://modrinth.com/mod/saints-dragons"

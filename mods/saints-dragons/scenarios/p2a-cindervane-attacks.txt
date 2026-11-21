@@ -1,0 +1,67 @@
+# Trigger the new attack ranges in a flat arena with a durable, stationary target.
+mods target\mods\saints-dragons.mmc
+start
+botstart tester
+wait 3
+cmd op tester
+cmd gamemode creative tester
+cmd tp tester 1029.5 121 1033.5
+wait 4
+cmd fill 1007 119 1007 1051 119 1057 minecraft:stone
+cmd fill 1007 120 1007 1051 129 1057 minecraft:air
+cmd time set midnight
+wait 4
+
+cmd cindervane spawn 1025 120 1025
+cmd summon minecraft:iron_golem 1025.5 120 1028.25 {NoAI:1b}
+wait 3
+cmd tp @e[type=minecraft:ravager,limit=1] 1025.5 120 1025.5 0 0
+wait 0.25
+cmd damage @e[type=minecraft:ravager,limit=1] 1 minecraft:mob_attack by @e[type=minecraft:iron_golem,limit=1]
+wait 1.5
+cmd cindervane find 1025 120 1025
+cmd data get entity @e[type=minecraft:iron_golem,limit=1] Health
+wait 0.5
+expect attack=double-bite fire=active
+expect Iron Golem has the following entity data: (?:[0-9]{1,2})(?:\.[0-9]+)?f
+cmd damage @e[type=minecraft:ravager,limit=1] 1000 minecraft:generic
+cmd kill @e[type=minecraft:iron_golem,limit=1]
+wait 2
+
+cmd cindervane spawn 1025 120 1025
+cmd summon minecraft:iron_golem 1025.5 120 1033.25 {NoAI:1b}
+wait 3
+cmd tp @e[type=minecraft:ravager,limit=1] 1025.5 120 1025.5 0 0
+wait 0.25
+cmd damage @e[type=minecraft:ravager,limit=1] 1 minecraft:mob_attack by @e[type=minecraft:iron_golem,limit=1]
+wait 2.1
+cmd cindervane find 1025 120 1025
+cmd data get entity @e[type=minecraft:iron_golem,limit=1] Health
+wait 0.5
+expect attack=slash-grab
+expect Iron Golem has the following entity data: (?:[0-9]{1,2})(?:\.[0-9]+)?f
+cmd damage @e[type=minecraft:ravager,limit=1] 1000 minecraft:generic
+cmd kill @e[type=minecraft:iron_golem,limit=1]
+wait 2
+
+cmd cindervane spawn 1025 120 1025
+cmd summon minecraft:iron_golem 1025.5 120 1046.5 {NoAI:1b}
+wait 3
+cmd tp @e[type=minecraft:ravager,limit=1] 1025.5 120 1025.5 0 0
+wait 0.25
+cmd damage @e[type=minecraft:ravager,limit=1] 1 minecraft:mob_attack by @e[type=minecraft:iron_golem,limit=1]
+wait 1
+cmd cindervane find 1025 120 1025
+wait 0.5
+expect attack=magma-volley
+wait 3
+cmd data get entity @e[type=minecraft:iron_golem,limit=1] Health
+wait 0.5
+expect Iron Golem has the following entity data: (?:[0-9]{1,2})(?:\.[0-9]+)?f
+cmd damage @e[type=minecraft:ravager,limit=1] 1000 minecraft:generic
+cmd kill @e[type=minecraft:iron_golem,limit=1]
+wait 2
+
+reject (?i)panic|panicked
+bot quit
+stop
